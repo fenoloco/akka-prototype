@@ -2,6 +2,7 @@ package akkaprototype.actors.bindigs.in
 
 import akka.actor.Actor
 import spray.http.MediaTypes.`application/json`
+import spray.httpx.marshalling.ToResponseMarshallable
 import spray.routing.HttpService
 
 import scala.language.postfixOps
@@ -19,22 +20,14 @@ trait RestService extends HttpService {
       path("") {
         respondWithMediaType(`application/json`) {
           complete {
-            <html>
+            ToResponseMarshallable.isMarshallable(<html>
               <body>
                 <h1>Testing</h1>
               </body>
-            </html>
+            </html>)
           }
         }
-      } ~
-        path("otherResourse") {
-          get { ctx =>
-            ctx.complete {
-              val result: days
-              result
-            }
-          }
-        }
+      }
     }
   }
   val router = jsonRoute
