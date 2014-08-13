@@ -25,5 +25,6 @@ object Main extends App {
 
   println("Hit any key to exit.")
   val result = readLine()
-  system.shutdown()
+  sys.addShutdownHook(system.shutdown())
+
 }
