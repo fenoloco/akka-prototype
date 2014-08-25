@@ -19,7 +19,7 @@
             <maxFileSize>5MB</maxFileSize>
         </triggeringPolicy>
         <encoder>
-            <pattern>%date{ISO8601} %-5level %logger{36} %X{sourceThread} - %msg%n</pattern>
+            <pattern>%date{HH:mm:ss} %-5level [%X{akkaSource}] - %msg%n</pattern>
         </encoder>
     </appender>
 
