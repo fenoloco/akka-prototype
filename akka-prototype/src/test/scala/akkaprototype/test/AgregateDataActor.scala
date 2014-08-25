@@ -20,15 +20,15 @@ class TestService extends TestKit(ActorSystem("TestAS")) with ImplicitSender wit
       val actionTwoActor = system.actorOf(Props[FindDataTwoStub], "find-data-two-stub")
       val actionThreeActor = system.actorOf(Props[FindDataThreeStub], "find-data-three-stub")
       val agregateDataActor = system.actorOf(
-        Props(new AggregateMessageDataActor()), "agregate-data-actor")
+        Props(new AggregateMessageDataActor(actionOneActor,actionTwoActor,actionThreeActor)), "agregate-data-actor")
 
-      within(300 milliseconds) {
+      within(4000 milliseconds) {
         probe1.send(agregateDataActor, ProcessAction(1L))
         val result = probe1.expectMsgType[ActionData]
         result must equal(ActionData(Some(List((3l, 15000d))), Some(List((1l, 150000d), (2l, 29000d))),
           Some(List())))
       }
-      within(300 milliseconds) {
+      within(4000 milliseconds) {
         probe2.send(agregateDataActor, ProcessAction(2L))
         val result = probe2.expectMsgType[ActionData]
         result must equal(
